@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(BfDesktopTargetFramework)</TargetFramework>
+    <RootNamespace>ByteForge.Syntax</RootNamespace>
+    <Description>语法高亮模块：词法扫描 + 语言定义 + 主题配色。不依赖任何 UI 框架，可单独测试。</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ByteForge.Core\ByteForge.Core.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>$(BfDesktopTargetFramework)</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>ByteForge.Editor.Wpf</RootNamespace>
+    <AssemblyName>ByteForgeCodeStudio</AssemblyName>
+    <ApplicationIcon>..\..\assets\icons\app-icon.ico</ApplicationIcon>
+    <!-- 按显示器各自缩放（PerMonitorV2）：不开的话高分屏上整个界面会被系统拉伸，看起来发虚 -->
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ByteForge.Core\ByteForge.Core.csproj" />
+    <ProjectReference Include="..\ByteForge.FileIO\ByteForge.FileIO.csproj" />
+    <ProjectReference Include="..\ByteForge.Syntax\ByteForge.Syntax.csproj" />
+    <ProjectReference Include="..\ByteForge.Markdown\ByteForge.Markdown.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- 图标随程序一起放到安装目录，运行时按 AppPaths.IconPath 动态取 -->
+    <Content Include="..\..\assets\icons\app-icon.ico" Link="assets\icons\app-icon.ico" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\assets\icons\app-icon.png" Link="assets\icons\app-icon.png" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

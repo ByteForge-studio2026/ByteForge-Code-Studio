@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>$(BfDesktopTargetFramework)</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>ByteForge.Setup</RootNamespace>
+    <AssemblyName>ByteForgeSetup</AssemblyName>
+    <ApplicationIcon>..\..\assets\icons\app-icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ByteForge.Core\ByteForge.Core.csproj" />
+    <ProjectReference Include="..\ByteForge.FileIO\ByteForge.FileIO.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- 图标作为 WPF 资源嵌入到程序集：单文件发布后目录里不会留下散落的图片文件 -->
+    <Resource Include="..\..\assets\icons\app-icon.png" Link="assets\icons\app-icon.png" />
+    <Resource Include="..\..\assets\icons\app-icon.ico" Link="assets\icons\app-icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- 安装内容压缩包：发布时由 tools/publish.py 生成放在本目录，然后嵌进 Setup.exe。
+         有它 Setup 就是一个自包含的单文件安装程序（安装 = 解压它）。 -->
+    <EmbeddedResource Include="payload.zip" Condition="Exists('payload.zip')" />
+  </ItemGroup>
+
+</Project>

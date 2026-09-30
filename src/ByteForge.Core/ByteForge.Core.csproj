@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(BfDesktopTargetFramework)</TargetFramework>
+    <RootNamespace>ByteForge.Core</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- 用户协议：以嵌入式资源打包，任何安装位置都能读到 -->
+    <EmbeddedResource Include="..\..\docs\ByteForge产品用户协议-2026年修订版.txt"
+                      LogicalName="ByteForge.Core.Legal.Agreement.txt" />
+  </ItemGroup>
+
+</Project>

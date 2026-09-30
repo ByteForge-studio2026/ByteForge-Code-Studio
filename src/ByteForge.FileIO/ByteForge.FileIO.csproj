@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(BfDesktopTargetFramework)</TargetFramework>
+    <RootNamespace>ByteForge.FileIO</RootNamespace>
+    <Description>打开文件模块：编码识别、二进制判定、读写文件、文件关联。不依赖任何 UI 框架。</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ByteForge.Core\ByteForge.Core.csproj" />
+  </ItemGroup>
+
+</Project>

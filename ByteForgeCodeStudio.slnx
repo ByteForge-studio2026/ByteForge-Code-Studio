@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ByteForge.Core/ByteForge.Core.csproj" />
+    <Project Path="src/ByteForge.Editor.Wpf/ByteForge.Editor.Wpf.csproj" />
+    <Project Path="src/ByteForge.FileIO/ByteForge.FileIO.csproj" />
+    <Project Path="src/ByteForge.Markdown/ByteForge.Markdown.csproj" />
+    <!-- ByteForge.Settings.WinUI 已废弃：设置页已合并进编辑器本体，不再单独发一个程序 -->
+    <Project Path="src/ByteForge.Setup/ByteForge.Setup.csproj" />
+    <Project Path="src/ByteForge.Syntax/ByteForge.Syntax.csproj" />
+  </Folder>
+</Solution>
+

@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(BfDesktopTargetFramework)</TargetFramework>
+    <RootNamespace>ByteForge.Markdown</RootNamespace>
+    <Description>Markdown 解析模块：输出与 UI 无关的文档模型，由界面层渲染。</Description>
+  </PropertyGroup>
+
+</Project>

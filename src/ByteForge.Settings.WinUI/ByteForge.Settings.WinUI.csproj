@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>$(BfWinUiTargetFramework)</TargetFramework>
+    <UseWinUI>true</UseWinUI>
+    <!-- 非打包（unpackaged）部署：直接拷到安装目录即可运行，依赖 WindowsAppSDK 运行时 -->
+    <WindowsPackageType>None</WindowsPackageType>
+    <EnableMsixTooling>false</EnableMsixTooling>
+    <!-- 自带 WindowsAppSDK 运行时 DLL：拷到任意目录都能跑，不要求用户先装运行时 -->
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <!-- 自带 WindowsAppSDK 运行时：拷到任意目录都能直接双击运行，不要求用户先装运行时 -->
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <RootNamespace>ByteForge.Settings.WinUI</RootNamespace>
+    <AssemblyName>ByteForgeSettings</AssemblyName>
+    <ApplicationIcon>..\..\assets\icons\app-icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250401001" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ByteForge.Core\ByteForge.Core.csproj" />
+    <ProjectReference Include="..\ByteForge.FileIO\ByteForge.FileIO.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\assets\icons\app-icon.ico" Link="assets\icons\app-icon.ico" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

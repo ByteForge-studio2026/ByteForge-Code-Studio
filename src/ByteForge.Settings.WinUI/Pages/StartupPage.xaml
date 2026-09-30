@@ -1,0 +1,39 @@
+<Page x:Class="ByteForge.Settings.WinUI.Pages.StartupPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ScrollViewer Padding="0,0,14,28">
+        <StackPanel Spacing="14" MaxWidth="780" Margin="22,16,0,0">
+
+            <Border Style="{StaticResource SettingsCard}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="启动与窗口" Style="{StaticResource BodyStrongTextBlockStyle}" />
+
+                    <ToggleSwitch x:Name="OpenLastSwitch" Header="启动时打开上次的文件" />
+                    <ToggleSwitch x:Name="RememberWindowSwitch" Header="记住窗口大小与最大化状态" />
+
+                    <Grid Margin="0,4,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="156" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="最近文件条数" Style="{StaticResource FormLabel}" />
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="12">
+                            <Slider x:Name="RecentCountSlider" Width="220" ValueChanged="RecentCountSlider_ValueChanged" />
+                            <TextBlock x:Name="RecentCountText" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <Button Content="保存" CornerRadius="9" Padding="20,8"
+                        Style="{StaticResource AccentButtonStyle}" Click="Save_Click" />
+                <Button Content="恢复默认" CornerRadius="9" Padding="18,8" Click="Reset_Click" />
+                <Button Content="打开配置目录" CornerRadius="9" Padding="18,8" Click="Folder_Click" />
+            </StackPanel>
+
+            <InfoBar x:Name="HintBar" IsOpen="False" CornerRadius="10" />
+        </StackPanel>
+    </ScrollViewer>
+</Page>

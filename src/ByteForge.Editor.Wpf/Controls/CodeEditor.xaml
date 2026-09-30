@@ -1,0 +1,28 @@
+<UserControl x:Class="ByteForge.Editor.Wpf.Controls.CodeEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ByteForge.Editor.Wpf.Controls"
+             SnapsToDevicePixels="True">
+    <Border x:Name="Root" Background="#FFFFFF">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <local:LineNumberMargin x:Name="Gutter" Grid.Column="0" />
+
+            <RichTextBox x:Name="Editor"
+                         Grid.Column="1"
+                         AcceptsReturn="True"
+                         AcceptsTab="True"
+                         IsUndoEnabled="True"
+                         BorderThickness="0"
+                         Background="Transparent"
+                         Padding="4,2,8,2"
+                         SpellCheck.IsEnabled="False"
+                         VerticalScrollBarVisibility="Auto"
+                         HorizontalScrollBarVisibility="Auto" />
+        </Grid>
+    </Border>
+</UserControl>

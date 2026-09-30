@@ -1,0 +1,53 @@
+<Page x:Class="ByteForge.Settings.WinUI.Pages.IndentPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ScrollViewer Padding="0,0,14,28">
+        <StackPanel Spacing="14" MaxWidth="780" Margin="22,16,0,0">
+
+            <Border Style="{StaticResource SettingsCard}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="缩进与换行" Style="{StaticResource BodyStrongTextBlockStyle}" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="156" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="Tab 宽度" Style="{StaticResource FormLabel}" />
+                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Spacing="12">
+                            <Slider x:Name="TabSizeSlider" Width="220" ValueChanged="TabSizeSlider_ValueChanged" />
+                            <TextBlock x:Name="TabSizeText" VerticalAlignment="Center" />
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="1" Text="换行符" Style="{StaticResource FormLabel}" Margin="0,10,0,0" />
+                        <ComboBox x:Name="LineEndingBox" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left"
+                                  Width="200" CornerRadius="8" Margin="0,10,0,0" SelectionChanged="Setting_Changed">
+                            <ComboBoxItem Content="CRLF（Windows）" Tag="crlf" />
+                            <ComboBoxItem Content="LF（Unix / macOS）" Tag="lf" />
+                            <ComboBoxItem Content="保持文件原样" Tag="keep" />
+                        </ComboBox>
+                    </Grid>
+
+                    <ToggleSwitch x:Name="TabToSpacesSwitch" Header="Tab 键插入空格" />
+                    <ToggleSwitch x:Name="TrimTrailingSwitch" Header="保存时去除行尾空格" />
+                    <ToggleSwitch x:Name="FinalNewlineSwitch" Header="保存时确保文件末尾有换行" />
+                </StackPanel>
+            </Border>
+
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <Button Content="保存" CornerRadius="9" Padding="20,8"
+                        Style="{StaticResource AccentButtonStyle}" Click="Save_Click" />
+                <Button Content="恢复默认" CornerRadius="9" Padding="18,8" Click="Reset_Click" />
+                <Button Content="打开配置目录" CornerRadius="9" Padding="18,8" Click="Folder_Click" />
+            </StackPanel>
+
+            <InfoBar x:Name="HintBar" IsOpen="False" CornerRadius="10" />
+        </StackPanel>
+    </ScrollViewer>
+</Page>

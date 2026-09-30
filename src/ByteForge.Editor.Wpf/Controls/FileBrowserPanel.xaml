@@ -1,0 +1,178 @@
+<UserControl x:Class="ByteForge.Editor.Wpf.Controls.FileBrowserPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="Transparent"
+             UseLayoutRounding="True"
+             SnapsToDevicePixels="True"
+             TextOptions.TextFormattingMode="Display">
+
+    <!-- 应用内文件管理器：不用系统文件对话框，全圆角卡片 -->
+        <Border x:Name="Card" CornerRadius="12" Background="#FFFFFF"
+            BorderBrush="#E4E4E7" BorderThickness="1"
+            MaxWidth="920" MaxHeight="600" MinWidth="680" MinHeight="440"
+            SnapsToDevicePixels="True"
+            PreviewMouseLeftButtonDown="Card_PreviewMouseLeftButtonDown">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="26" ShadowDepth="2" Opacity="0.18" Direction="270" />
+        </Border.Effect>
+
+        <DockPanel LastChildFill="True">
+
+            <!-- 标题 -->
+            <Grid DockPanel.Dock="Top" Margin="20,16,16,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Path x:Name="TitleIcon" Grid.Column="0" Width="18" Height="18" Stretch="Uniform"
+                      Stroke="#5A5A62" StrokeThickness="2" Fill="Transparent"
+                      StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"
+                      Data="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                <TextBlock x:Name="TitleText" Grid.Column="1" Text="打开文件" FontSize="15"
+                           FontWeight="SemiBold" Margin="10,0,0,0" VerticalAlignment="Center"
+                           Foreground="#1F1F1F" />
+                <Button x:Name="CloseButton" Grid.Column="2" Content="✕" FontSize="12"
+                        Style="{StaticResource RoundedButton}" Width="32" Height="30" Padding="0"
+                        Background="Transparent" BorderBrush="#D8D8DC" Foreground="#8A8A8A"
+                        ToolTip="关闭 (Esc)" Click="CloseButton_Click" />
+            </Grid>
+
+            <!-- 底部：文件名 + 类型 + 打开 / 取消 -->
+            <Grid DockPanel.Dock="Bottom" Margin="20,12,20,18">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock x:Name="NameLabel" Grid.Column="0" Text="文件名" FontSize="12.5"
+                           VerticalAlignment="Center" Margin="0,0,10,0" Foreground="#6E6E73" />
+                <TextBox x:Name="FileNameBox" Grid.Column="1" FontSize="12.5"
+                         KeyDown="FileNameBox_KeyDown" />
+                <ComboBox x:Name="TypeBox" Grid.Column="2" Width="150" Margin="10,0,10,0"
+                          SelectionChanged="TypeBox_SelectionChanged">
+                    <ComboBoxItem Content="可识别的文本" IsSelected="True" />
+                    <ComboBoxItem Content="所有文件" />
+                </ComboBox>
+                <Button x:Name="CancelButton" Grid.Column="3" Content="取消" FontSize="12.5"
+                        Style="{StaticResource RoundedButton}" Padding="16,6" Margin="0,0,8,0"
+                        Background="Transparent" BorderBrush="#D8D8DC" Foreground="#8A8A8A"
+                        Click="CloseButton_Click" />
+                <Button x:Name="OpenButton" Grid.Column="4" Content="打开" FontSize="12.5"
+                        Style="{StaticResource RoundedButton}" Padding="18,6"
+                        Background="#2F6FEB" BorderBrush="#2F6FEB" Foreground="#FFFFFF"
+                        Click="OpenButton_Click" />
+            </Grid>
+
+            <!-- 主体：左侧快捷位置 + 右侧路径条与文件列表 -->
+            <Grid Margin="16,0,16,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="176" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- 快捷位置 -->
+                <ListBox x:Name="PlaceList" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+                         Style="{StaticResource RecentListBox}"
+                         ItemContainerStyle="{StaticResource RecentItem}"
+                         Margin="0,0,12,0" SelectionChanged="PlaceList_SelectionChanged" />
+
+                <!-- 路径条 -->
+                <Grid Grid.Column="1" Grid.Row="0" Margin="0,0,0,4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="UpButton" Grid.Row="0" Grid.Column="0" Style="{StaticResource IconButton}"
+                            Width="30" Height="30" Background="Transparent"
+                            ToolTip="上一级" Click="UpButton_Click">
+                        <Path x:Name="UpGlyph" Width="16" Height="16" Stretch="Uniform"
+                              Stroke="#5A5A62" StrokeThickness="2" Fill="Transparent"
+                              StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"
+                              Data="M12 19 L12 5 M5 12 L12 5 L19 12" />
+                    </Button>
+
+                    <TextBox x:Name="PathBox" Grid.Row="0" Grid.Column="1" FontSize="12.5" Margin="8,0,8,0"
+                             PreviewKeyDown="PathBox_PreviewKeyDown" KeyUp="PathBox_KeyUp" />
+
+                    <!-- 路径补全：输入时给出候选目录，↑↓ 选、Enter / Tab 补全、Esc 收起 -->
+                    <!-- StaysOpen=True：否则 WPF 会在外部按键（如回车接受候选）前就把弹层关掉，
+                         导致回车没有走 ApplySuggest，而是把不完整路径交给 CommitPath 报“找不到”。
+                         关闭改由 Enter/Tab/Esc/导航/失焦时手动 HideSuggest 处理。 -->
+                    <Popup x:Name="PathPopup" PlacementTarget="{Binding ElementName=PathBox}"
+                           Placement="Bottom" AllowsTransparency="True" Focusable="False"
+                           StaysOpen="True" Width="540" PopupAnimation="Fade">
+                        <Border CornerRadius="10" Background="#FFFFFF" BorderBrush="#E4E4E7"
+                                BorderThickness="1" Padding="4" SnapsToDevicePixels="True">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="16" ShadowDepth="1" Opacity="0.16" Direction="270" />
+                            </Border.Effect>
+                            <ListBox x:Name="SuggestList" MaxHeight="230" BorderThickness="0"
+                                     Background="Transparent"
+                                     Focusable="False" IsTabStop="False"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     ItemContainerStyle="{StaticResource RecentItem}"
+                                     PreviewMouseLeftButtonDown="SuggestList_PreviewMouseLeftButtonDown" />
+                        </Border>
+                    </Popup>
+
+                    <Button x:Name="RefreshButton" Grid.Row="0" Grid.Column="2" Style="{StaticResource IconButton}"
+                            Width="30" Height="30" Background="Transparent" Margin="0,0,8,0"
+                            ToolTip="刷新" Click="RefreshButton_Click">
+                        <Path x:Name="RefreshGlyph" Width="16" Height="16" Stretch="Uniform"
+                              Stroke="#5A5A62" StrokeThickness="2" Fill="Transparent"
+                              StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"
+                              Data="M20 12a8 8 0 1 1-2.34-5.66 M20 5 L20 12 L13 12" />
+                    </Button>
+
+                    <Border Grid.Row="0" Grid.Column="3" Width="216" Height="30" CornerRadius="9"
+                            Background="#FFFFFF" BorderBrush="#D8D8DC" BorderThickness="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Path x:Name="FilterIcon" Grid.Column="0" Width="13" Height="13" Stretch="Uniform"
+                                  Margin="9,0,6,0" Stroke="#8A8A8A" StrokeThickness="2" Fill="Transparent"
+                                  StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"
+                                  Data="M19 11a8 8 0 1 0-16 0 8 8 0 0 0 16 0z M21 21 L16.65 16.65" />
+                            <TextBox x:Name="FilterBox" Grid.Column="1" Background="Transparent"
+                                     BorderThickness="0" FontSize="12.5" VerticalAlignment="Center"
+                                     Margin="0,0,9,0" TextChanged="FilterBox_TextChanged" />
+                        </Grid>
+                    </Border>
+
+                    <TextBlock x:Name="PathHint" Grid.Row="1" Grid.Column="1" FontSize="11.5"
+                               Margin="9,4,0,0" Foreground="#C0392B" TextWrapping="NoWrap"
+                               TextTrimming="CharacterEllipsis" Visibility="Collapsed" />
+                </Grid>
+
+                <!-- 文件列表 -->
+                <Border Grid.Column="1" Grid.Row="1" CornerRadius="10" Background="#F7F7F9"
+                        BorderBrush="#E4E4E7" BorderThickness="1" Padding="6">
+                    <ListBox x:Name="FileList" Style="{StaticResource RecentListBox}"
+                             ItemContainerStyle="{StaticResource RecentItem}"
+                             Background="Transparent"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             SelectionChanged="FileList_SelectionChanged"
+                             KeyDown="FileList_KeyDown" />
+                </Border>
+            </Grid>
+        </DockPanel>
+    </Border>
+</UserControl>

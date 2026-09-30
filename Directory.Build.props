@@ -1,0 +1,23 @@
+<Project>
+
+  <!-- ByteForge Code Studio 公共属性：所有工程的统一开关都放这里 -->
+  <PropertyGroup>
+    <!-- 桌面端（WPF / 类库）目标框架；WinUI 3 工程用 BfWinUiTargetFramework -->
+    <BfDesktopTargetFramework>net10.0-windows</BfDesktopTargetFramework>
+    <BfWinUiTargetFramework>net10.0-windows10.0.19041.0</BfWinUiTargetFramework>
+
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+
+    <Version>0.1.0-alpha.1</Version>
+    <Authors>ByteForge 工作室</Authors>
+    <Company>ByteForge 工作室</Company>
+    <Product>ByteForge Code Studio</Product>
+    <Copyright>Copyright (c) 2026 ByteForge</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+</Project>
+
